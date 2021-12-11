@@ -1,9 +1,7 @@
 export function auth() {
-  const roles: string[] = ['南京', '北京', '西安', '广州'];
-  console.log(roles);
+  const roles: string[] = ['南京', '北京', '西安', '广州', '成都'];
+  console.table(roles);
 }
-
-auth();
 
 export abstract class User {
   protected name = '';
@@ -45,3 +43,5 @@ export class Expert extends User {
     this.score = this.score + 10;
   }
 }
+
+auth();

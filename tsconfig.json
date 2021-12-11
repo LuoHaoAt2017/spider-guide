@@ -14,9 +14,10 @@
     "sourceMap": true,
     "resolveJsonModule": true
   },
-  // "files": [],
   "include": [
     "src/**/*.ts"
   ],
-  "exclude": [],
+  "exclude": [
+    "node_modules"
+  ],
 }

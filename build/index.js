@@ -17,11 +17,10 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Expert = exports.Master = exports.Novice = exports.Level = exports.User = exports.auth = void 0;
 function auth() {
-    var roles = ['南京', '北京', '西安', '广州'];
-    console.log(roles);
+    var roles = ['南京', '北京', '西安', '广州', '成都'];
+    console.table(roles);
 }
 exports.auth = auth;
-auth();
 var User = /** @class */ (function () {
     function User(name, score) {
         if (name === void 0) { name = ''; }
@@ -68,4 +67,5 @@ var Expert = /** @class */ (function (_super) {
     return Expert;
 }(User));
 exports.Expert = Expert;
+auth();
 //# sourceMappingURL=index.js.map
