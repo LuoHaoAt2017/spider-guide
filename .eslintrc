@@ -1,0 +1,33 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2015, // 指定你想要使用的 ECMAScript 版本, 不自动启用es6全局变量。
+    "sourceType": "module", // 如果代码是 ECMAScript 模块
+    "ecmaFeatures": {
+      "jsx": false, // 不启用 JSX
+      "impliedStrict": true, // 启用全局 strict mode
+      "experimentalObjectRestSpread": true, // 启用实验性的 object rest/spread properties 支持
+      "globalReturn": false // 不允许在全局作用域下使用 return 语句
+    }
+  },
+  "plugins": [ // 插件名称可以省略 eslint-plugin- 前缀。
+    "@typescript-eslint"
+  ],
+  "extends": [ // 推荐的规则
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "eqeqeq": "error",
+    "@typescript-eslint/array-type": "error",
+    "@typescript-eslint/no-inferrable-types": "off" // 关闭自动类型推断
+  },
+  "globals": { // 如果你想在一个源文件里使用全局变量，推荐你在 ESLint 中定义这些全局变量，这样 ESLint 就不会发出警告了。
+    "Promise": "off", // 字符串 "off" 禁用全局变量,
+  },
+  "env": { // 一个环境定义了一组预定义的全局变量。
+    "node": true,
+    "es6": true, // 支持 ES6 语法并不意味着同时支持新的 ES6 全局变量或类型
+    "jest": true
+  }
+}
