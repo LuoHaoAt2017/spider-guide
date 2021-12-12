@@ -12,10 +12,21 @@
     "outDir": "build",
     "baseUrl": ".",
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "lodash",
+      "express",
+      "sequelize",
+      "jest"
+    ]
   },
+  "files": [
+    "src/typings/global.d.ts",
+    "src/typings/custom.d.ts",
+  ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
   ],
   "exclude": [
     "node_modules"

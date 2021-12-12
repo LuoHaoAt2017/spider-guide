@@ -1,16 +1,12 @@
-export function auth() {
-  const roles: string[] = ['南京', '北京', '西安', '广州', '成都'];
-  console.table(roles);
-}
-
+import _ from 'lodash';
 export abstract class User {
-  protected name = '';
+  protected name: string = "";
 
-  protected score = 0;
+  protected score: number = 0;
 
   protected level: Level = Level.Novice;
 
-  constructor(name: string = '', score: number = 0) {
+  constructor(name: string = "", score: number = 0) {
     this.name = name;
     this.score = score;
   }
@@ -20,6 +16,14 @@ export enum Level {
   Novice = 1,
   Master = 2,
   Expert = 3,
+}
+
+export type CardinalDirection = "North" | "East" | "South" | "West";
+
+export enum Color {
+  RED = "RED",
+  GREEN = "GREEN",
+  BLUE = "BLUE",
 }
 
 export class Novice extends User {
@@ -44,4 +48,33 @@ export class Expert extends User {
   }
 }
 
-auth();
+export function auth() {
+  const roles: string[] = ["南京", "北京", "西安", "广州", "成都"];
+  console.table(roles);
+}
+
+export function move(direction: CardinalDirection) {
+  console.log("move direction: ", direction);
+}
+
+export function draw(color: Color) {
+  console.log("color: ", color);
+}
+
+export function sort() {
+  const users = [
+    { user: "fred", age: 48 },
+    { user: "barney", age: 34 },
+    { user: "fred", age: 40 },
+    { user: "barney", age: 36 },
+  ];
+  const list = _.orderBy(users, 'age', 'asc');
+  console.table(list);
+  global.circle = 'aircraft';
+  console.log(global.circle);
+  console.log(globalThis.circle);
+}
+
+move("North");
+draw(Color.BLUE);
+sort();
