@@ -18,7 +18,8 @@
       "lodash",
       "express",
       "sequelize",
-      "jest"
+      "jest",
+      "superagent"
     ]
   },
   "files": [

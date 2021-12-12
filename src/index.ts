@@ -1,44 +1,46 @@
-import _ from 'lodash';
-import { LettersValidator } from './validator';
+import superagent from 'superagent';
+import cheerio from 'cheerio';
 
-export type CardinalDirection = "North" | "East" | "South" | "West";
-
-export enum Color {
-  RED = "RED",
-  GREEN = "GREEN",
-  BLUE = "BLUE",
+interface Person {
+  name: string;
+  info: string;
 }
 
-export function auth() {
-  const roles: string[] = ["南京", "北京", "西安", "广州", "成都"];
-  console.table(roles);
-}
+export class Spider {
 
-export function move(direction: CardinalDirection) {
-  console.log("move direction: ", direction);
-}
+  private url: string = '';
 
-export function draw(color: Color) {
-  console.log("color: ", color);
-}
+  private list: Person[] = [];
 
-export function sort() {
-  const users = [
-    { user: "fred", age: 48 },
-    { user: "barney", age: 34 },
-    { user: "fred", age: 40 },
-    { user: "barney", age: 36 },
-  ];
-  const list = _.orderBy(users, 'age', 'asc');
-  console.table(list);
-  global.circle = 'aircraft';
-  console.log(global.circle);
-  console.log(globalThis.circle);
+  constructor(url: string) {
+    this.url = url;
+    this.getHtml();
+  }
+
+  async getHtml() {
+    const res = await superagent.post(this.url);
+    this.parseHtml(res.text);
+  }
+
+  parseHtml(html: string) {
+    const $ = cheerio.load(html);
+    const items = $('#allNameBar').find('dd span a');
+    items.each((index, item) => {
+      const name = $(item).text();
+      const info = $(item).attr('href') || '';
+      this.list.push({
+        name: name,
+        info: info,
+      });
+    });
+    console.table(this.list);
+  }
 }
 
 function main() {
-  const city = 'wuhan';
-  new LettersValidator().isAcceptable(city);
+  // 中国科学院全体院士名单
+  const url = 'http://casad.cas.cn/ysxx2017/ysmdyjj/qtysmd_124280';
+  new Spider(url);
 }
 
 main();
