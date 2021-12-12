@@ -1,22 +1,5 @@
 import _ from 'lodash';
-export abstract class User {
-  protected name: string = "";
-
-  protected score: number = 0;
-
-  protected level: Level = Level.Novice;
-
-  constructor(name: string = "", score: number = 0) {
-    this.name = name;
-    this.score = score;
-  }
-}
-
-export enum Level {
-  Novice = 1,
-  Master = 2,
-  Expert = 3,
-}
+import { LettersValidator } from './validator';
 
 export type CardinalDirection = "North" | "East" | "South" | "West";
 
@@ -24,28 +7,6 @@ export enum Color {
   RED = "RED",
   GREEN = "GREEN",
   BLUE = "BLUE",
-}
-
-export class Novice extends User {
-  constructor() {
-    super();
-  }
-}
-
-export class Master extends User {
-  constructor() {
-    super();
-  }
-}
-
-export class Expert extends User {
-  constructor() {
-    super();
-  }
-
-  reply() {
-    this.score = this.score + 10;
-  }
 }
 
 export function auth() {
@@ -75,6 +36,9 @@ export function sort() {
   console.log(globalThis.circle);
 }
 
-move("North");
-draw(Color.BLUE);
-sort();
+function main() {
+  const city = 'wuhan';
+  new LettersValidator().isAcceptable(city);
+}
+
+main();
