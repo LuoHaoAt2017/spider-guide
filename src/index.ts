@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import superagent from 'superagent';
 import cheerio from 'cheerio';
 
@@ -10,30 +12,45 @@ export class Spider {
 
   private url: string = '';
 
-  private list: Person[] = [];
-
   constructor(url: string) {
     this.url = url;
-    this.getHtml();
+    this.process();
+  }
+
+  async process() {
+    const html = await this.getHtml();
+    const data = this.parseHtml(html);
+    this.saveData(data);
   }
 
   async getHtml() {
     const res = await superagent.post(this.url);
-    this.parseHtml(res.text);
+    return res.text;
   }
 
-  parseHtml(html: string) {
+  parseHtml(html: string): Person[] {
+    const list: Person[] = [];
     const $ = cheerio.load(html);
     const items = $('#allNameBar').find('dd span a');
-    items.each((index, item) => {
+    items.each(function (index, item) {
       const name = $(item).text();
       const info = $(item).attr('href') || '';
-      this.list.push({
+      list.push({
         name: name,
         info: info,
       });
     });
-    console.table(this.list);
+    return list;
+  }
+
+  saveData(data: Person[]) {
+    const filePath = path.resolve(__dirname, './data/person.json');
+    let fileContent = [];
+    if (fs.existsSync(filePath)) {
+      fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    }
+    data = data.concat(fileContent);
+    fs.writeFileSync(filePath, JSON.stringify(data), 'utf-8')
   }
 }
 
