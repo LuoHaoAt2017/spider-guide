@@ -20,8 +20,9 @@
   "rules": {
     "eqeqeq": "error",
     "@typescript-eslint/array-type": "error",
-    "@typescript-eslint/no-namespace": "off", // 关闭 禁止使用自定义命名空间
-    "@typescript-eslint/no-inferrable-types": "off" // 关闭自动类型推断
+    "@typescript-eslint/no-namespace": "off", // 关闭禁止使用自定义命名空间
+    "@typescript-eslint/no-inferrable-types": "off", // 关闭自动类型推断
+    "@typescript-eslint/no-empty-function": "off" // 关闭禁止空方法体检测
   },
   "globals": { // 如果你想在一个源文件里使用全局变量，推荐你在 ESLint 中定义这些全局变量，这样 ESLint 就不会发出警告了。
     "Promise": "off", // 字符串 "off" 禁用全局变量,
